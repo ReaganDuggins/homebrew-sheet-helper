@@ -63,8 +63,8 @@
             <h3>
               {{ condition.name == 'Dying' ? (character.dying ? "Dying" : "Wounded") : condition.name }} 
               <span v-if="condition.name === 'Dying'">
-                <button v-if="!character.dying" @click="toggleDyingWounded"><img class="icon" alt="Wound" src="./assets/skull-crossed-bones.png"></button>
-                <button v-if="character.dying" @click="toggleDyingWounded"><img class="icon" alt="Wound" src="./assets/bleeding-wound.png"></button>
+                <button v-if="!character.dying" @click="toggleDyingWounded"><img class="icon" alt="Wound" src="../assets/skull-crossed-bones.png"></button>
+                <button v-if="character.dying" @click="toggleDyingWounded"><img class="icon" alt="Wound" src="../assets/bleeding-wound.png"></button>
               </span>
             </h3>
             <section class="inputWithButtons">
