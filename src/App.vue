@@ -469,8 +469,8 @@ export default {
         }
       });
       this.character.name = "";
-      charStats.coreAttribute = 'Str';
-      charStats.proficiency = 'trained';
+      this.character.coreAttribute = 'Str';
+      this.character.proficiency = 'trained';
       this.saveForm();
     }
   },
