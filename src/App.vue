@@ -1,26 +1,26 @@
 <template>
   <section>
     <section class="bigCard">
-      <button id="resetButton" @click="this.resetCharacter()">Reset Character</button>
+      <button id="resetButton" @click="resetCharacter">Reset Character</button>
       <section class="baseStat">
         <label for="name">Name:</label>
-        <input @input="event => this.saveForm()" type="text" id="name" v-model="character.name">
+        <input @input="saveForm" type="text" id="name" v-model="character.name">
       </section>
       <section class="baseStat">
         <label for="level">Level:</label>
-        <input @input="event => this.saveForm()" type="number" min="0" max="20" id="level" v-model.number="character.level">
+        <input @input="saveForm" type="number" min="0" max="20" id="level" v-model.number="character.level">
       </section>
       <section class="baseStat">
         <label for="maxHP">Max HP:</label>
-        <input @input="event => this.saveForm()" type="number" min="0" id="maxHP" v-model.number="character.maxHP">
+        <input @input="saveForm" type="number" min="0" id="maxHP" v-model.number="character.maxHP">
       </section>
       <section class="baseStat">
         <label for="dieAtDying">Die At Dying Value:</label>
-        <input @input="event => this.saveForm()" type="number" min="4" id="dieAtDying" v-model.number="character.dieAtDying">
+        <input @input="saveForm" type="number" min="4" id="dieAtDying" v-model.number="character.dieAtDying">
       </section>
       <section class="baseStat">
         <label for="coreAttribute">Core Attribute:</label>
-        <select @change="event => this.saveForm()" id="coreAttribute" v-model="character.coreAttribute">
+        <select @change="saveForm" id="coreAttribute" v-model="character.coreAttribute">
           <option value="Str">Str</option>
           <option value="Dex">Dex</option>
           <option value="Wis">Wis</option>
@@ -30,7 +30,7 @@
       </section>
       <section class="baseStat">
         <label for="attributeBonus">Core Attribute Bonus:</label>
-        <input @input="event => this.saveForm()" type="number" min="-5" id="attribteBonus" v-model.number="character.attributeBonus">
+        <input @input="saveForm" type="number" min="-5" id="attribteBonus" v-model.number="character.attributeBonus">
         <section class="plusMinusButtons">
           <button class="plusMinusButton" @click="incrementCharacter('attributeBonus')">+</button>
           <button class="plusMinusButton" @click="decrementCharacter('attributeBonus')">-</button>
@@ -38,7 +38,7 @@
       </section>
       <section class="baseStat">
         <label for="proficiency">Max Available Proficiency:</label>
-        <select @change="event => this.saveForm()" id="proficiency" v-model="character.proficiency">
+        <select @change="saveForm" id="proficiency" v-model="character.proficiency">
           <option value="trained">Trained</option>
           <option value="expert">Expert</option>
           <option value="master">Master</option>
@@ -54,7 +54,7 @@
         <b>The Equation:</b> Level + {{ character.coreAttribute }} + Proficiency Bonus - Penalties
       </section>
       <section>
-        <b>The Bonus:</b> {{ this.totalAttackPenalty() }}
+        <b>The Bonus:</b> {{ totalAttackPenalty() }}
       </section>
       <h1>Conditions</h1>
       <section class="row">
@@ -68,7 +68,7 @@
               </span>
             </h3>
             <section class="inputWithButtons">
-              <input @input="event => this.saveForm()" type="number" min="0" v-model="condition.value" />
+              <input @input="saveForm" type="number" min="0" v-model="condition.value" />
               <section class="plusMinusButtons">
                 <button class="plusMinusButton" @click="increment(condition)">+</button>
                 <button class="plusMinusButton" @click="decrement(condition)">-</button>
@@ -373,6 +373,7 @@ export default {
     },
     toggleCondition(name) {
       this.conditions[name].value = !this.conditions[name].value;
+      this.saveForm();
     },
     getConditionsByKind(kind) {
       let keys = Object.keys(this.conditions);
@@ -467,7 +468,7 @@ export default {
           this.character[stat] = false;
         }
       });
-      charStats.name = "";
+      this.character.name = "";
       charStats.coreAttribute = 'Str';
       charStats.proficiency = 'trained';
       this.saveForm();
